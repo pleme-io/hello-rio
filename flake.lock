@@ -1,0 +1,166 @@
+{
+  "nodes": {
+    "crate2nix": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1774369503,
+        "narHash": "sha256-YeCF4iBhlvTqkn4mihjZgixnDcEVgfyQlNeBsbLYUgQ=",
+        "owner": "nix-community",
+        "repo": "crate2nix",
+        "rev": "b873ca53dd64e12340416f0fd5e3b33792b9c17b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "crate2nix",
+        "type": "github"
+      }
+    },
+    "fenix": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "rust-analyzer-src": "rust-analyzer-src"
+      },
+      "locked": {
+        "lastModified": 1777365644,
+        "narHash": "sha256-Z5Q3KNfZQoTrkUgkdrruwM0wB6jaVdM9i3Q6UgcIV9Q=",
+        "owner": "nix-community",
+        "repo": "fenix",
+        "rev": "996ffd25e71cd97add9458da37cc8ec8f9ec6978",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "fenix",
+        "type": "github"
+      }
+    },
+    "fenix_2": {
+      "inputs": {
+        "nixpkgs": [
+          "substrate",
+          "nixpkgs"
+        ],
+        "rust-analyzer-src": "rust-analyzer-src_2"
+      },
+      "locked": {
+        "lastModified": 1777102577,
+        "narHash": "sha256-ycoy9svZOQgyInu/lwO7IEQtlP5liqYhEcF9m9hPRbM=",
+        "owner": "nix-community",
+        "repo": "fenix",
+        "rev": "f37403486c59376cd285f9685a8ef8ff25c09a3c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "fenix",
+        "type": "github"
+      }
+    },
+    "flake-parts": {
+      "inputs": {
+        "nixpkgs-lib": [
+          "substrate",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1775087534,
+        "narHash": "sha256-91qqW8lhL7TLwgQWijoGBbiD4t7/q75KTi8NxjVmSmA=",
+        "owner": "hercules-ci",
+        "repo": "flake-parts",
+        "rev": "3107b77cd68437b9a76194f0f7f9c55f2329ca5b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "hercules-ci",
+        "repo": "flake-parts",
+        "type": "github"
+      }
+    },
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1777077449,
+        "narHash": "sha256-AIiMJiqvGrN4HyLEbKAoCSRRYn0rnlW5VbKNIMIYqm4=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "a4bf06618f0b5ee50f14ed8f0da77d34ecc19160",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixos-25.11",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "root": {
+      "inputs": {
+        "fenix": "fenix",
+        "nixpkgs": "nixpkgs",
+        "substrate": "substrate"
+      }
+    },
+    "rust-analyzer-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1777324474,
+        "narHash": "sha256-CydmOyYXLAw4pAo5UHEnNHHeNHS3GmAugFXk0tsGazQ=",
+        "owner": "rust-lang",
+        "repo": "rust-analyzer",
+        "rev": "c2a4de0fe8e7808f07b2db1ecc87238c16bf09ee",
+        "type": "github"
+      },
+      "original": {
+        "owner": "rust-lang",
+        "ref": "nightly",
+        "repo": "rust-analyzer",
+        "type": "github"
+      }
+    },
+    "rust-analyzer-src_2": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1776800521,
+        "narHash": "sha256-f8YJfwAOsLFpIoqZuX3yF69UvMLrkx7iVzMH1pJU7cM=",
+        "owner": "rust-lang",
+        "repo": "rust-analyzer",
+        "rev": "8954b66d43225e62c92e8bbcc8500191b5cceb1e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "rust-lang",
+        "ref": "nightly",
+        "repo": "rust-analyzer",
+        "type": "github"
+      }
+    },
+    "substrate": {
+      "inputs": {
+        "crate2nix": "crate2nix",
+        "fenix": "fenix_2",
+        "flake-parts": "flake-parts",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1777377948,
+        "narHash": "sha256-cAqgy/3Oe/6ekAbYrVOWrO3fT1yzkZ9ZMnF7nC3hb1w=",
+        "owner": "pleme-io",
+        "repo": "substrate",
+        "rev": "d87e00780b068e2523b1600c7ab47b542c4d0de5",
+        "type": "github"
+      },
+      "original": {
+        "owner": "pleme-io",
+        "repo": "substrate",
+        "type": "github"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}
