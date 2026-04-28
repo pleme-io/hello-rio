@@ -4,7 +4,7 @@ version = "0.1.0"
 edition = "2024"
 rust-version = "1.89.0"
 license = "MIT"
-description = "Canonical WASI HTTP service deployable to rio via substrate's wasi-service-flux-flake"
+description = "Canonical Rust-authored caixa Servico — wasm32-wasip2 HTTP service. Companion to programs/hello-world (Lisp)."
 repository = "https://github.com/pleme-io/hello-rio"
 
 [[bin]]
@@ -12,10 +12,21 @@ name = "hello-rio"
 path = "src/main.rs"
 
 [dependencies]
-# WASI HTTP server (component model). The runtime is provided by the
-# wasm-engine container at deploy time; locally `nix run .#default`
-# invokes wasmtime directly with the compiled .wasm.
+# wstd — stdlib-shaped WASI 0.2 layer. Provides http::server::serve plus
+# the proxy world entrypoint (#[wstd::http_server]) so the same .wasm
+# behaves both as a `wasi:cli/run` command and as a `wasi:http/proxy`
+# component. wasmtime serves it directly via `wasmtime serve`.
+wstd = "=0.5.0"
+
+# Direct WASI bindings — provided by wstd transitively but pinned here to
+# keep the surface explicit (component-model conventions, capability list).
 wasi = "0.14"
+
+# Pin wasip2 to the wasi-0.2.4 cohort so the resulting component targets
+# WIT 0.2.4 imports (wstd's transitive default is 0.2.9 via wasip2 1.0.3,
+# which only links against wasmtime ≥44 — and wasmtime 43 is what nixpkgs
+# ships today). When wasmtime 44+ lands in nixpkgs, drop this pin.
+wasip2 = "=1.0.1"
 
 [profile.release]
 codegen-units = 1

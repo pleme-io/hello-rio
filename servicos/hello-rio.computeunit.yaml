@@ -1,0 +1,63 @@
+---
+# hello-rio — typed K8s ComputeUnit manifest, the cluster-side runtime
+# contract for this caixa Servico.
+#
+# This file is the caixa-native parallel of programs/hello-world's
+# computeunit.yaml: same shape, same trigger story, same breathability
+# defaults. The difference is the module source — hello-rio resolves
+# from an OCI artifact built by Nix from the Rust source in src/, while
+# hello-world resolves from a tatara-lisp file evaluated by tatara-script.
+# Both render to the same Deployment + Service + ScaledObject under the
+# wasm-operator + lareira-tatara-stack runtime.
+#
+# Note: this is the *aspirational* Phase-B contract. The standalone
+# HelmRelease at pleme-io/k8s/clusters/rio/services/hello-rio/release.yaml
+# is the working-today path that runs wasmtime in a stock pod via
+# bjw-s/app-template. Once the operator is published and tatara-stack
+# is unsuspended on rio, the operator picks up this ComputeUnit and the
+# standalone HelmRelease can be retired.
+
+apiVersion: wasm.pleme.io/v1alpha1
+kind: ComputeUnit
+metadata:
+  name: hello-rio
+  namespace: tatara-system
+  labels:
+    pleme.pleme.io/program: hello-rio
+    pleme.pleme.io/source-language: rust
+    pleme.pleme.io/canonical: "true"
+spec:
+  module:
+    # Rust→wasm32-wasip2 component, published to GHCR by feira publish
+    # (or by the release workflow once it lands). Pin a tag, not :latest.
+    source: oci://ghcr.io/pleme-io/hello-rio:v0.1.0
+
+  trigger:
+    service:
+      port: 8080
+      paths: ["/", "/hello", "/healthz"]
+      hosts:
+        - hello-rio.tatara-system.svc.cluster.local
+        - hello-rio.quero.cloud
+      breathability:
+        enabled: true
+        minReplicas: 0       # full scale-to-zero — KEDA HTTP add-on warms on first request
+        maxReplicas: 5
+        cooldownPeriod: 600  # warm 10 min after last request
+        targetPendingRequests: 1
+
+  capabilities:
+    - http-in:0.0.0.0:8080  # WASI HTTP inbound
+    - env                    # PORT, GREETING, AUDIENCE, PUNCTUATION
+    - kube-downward-api     # pod-name + namespace echoed in responses
+
+  resources:
+    requests: { cpu: 50m,  memory: 64Mi }
+    limits:   { cpu: 500m, memory: 256Mi }
+
+  config:
+    PORT: "8080"
+    GREETING: Hello
+    AUDIENCE: rio
+    PUNCTUATION: "!"
+    DEBUG: "false"
