@@ -1,0 +1,25 @@
+name: release
+
+# The canonical caixa-native CI loop:
+#
+#   1. push to main with a bumped :versao in caixa.lisp
+#   2. substrate's caixa-publish.yml builds + pushes
+#      ghcr.io/pleme-io/hello-rio:v<versao> + :latest
+#   3. same workflow tags HEAD as v<versao> and pushes the tag
+#   4. consumers pin :tag "v<versao>" in their (defcaixa :deps …)
+#
+# See substrate/.github/workflows/caixa-publish.yml for the steps and
+# theory/META-FRAMEWORK.md §I for the layered model.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: {}
+
+jobs:
+  release:
+    uses: pleme-io/substrate/.github/workflows/caixa-publish.yml@main
+    secrets: inherit
+    permissions:
+      contents: write
+      packages: write
