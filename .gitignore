@@ -2,3 +2,6 @@
 /result
 /result-*
 *.log
+
+# feira chart local render output (regenerated on demand from caixa.lisp).
+.caixa/
